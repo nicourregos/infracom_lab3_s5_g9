@@ -3,6 +3,7 @@ import random
 import hashlib
 import logging
 import time
+import datetime
 import tqdm
 
 
@@ -10,36 +11,36 @@ def main():
 
     filesize = 104865944
     host = '192.168.1.5'
-    puerto = 21
+    puerto = 55555
     idcliente = int(10000000*random.random())
-    print('Hola, Cliente' + str(idCliente))
-    fecha = time.time().strftime('%Y-%m-%d%H-%M-%S')
-
+    print('Hola, Cliente' + str(idcliente))
+    fecha = datetime.datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
     logging.basicConfig(filename="./archivosC/Log" + fecha + ".log", level=logging.INFO,
                         format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     print('Se terminó de configurar el log de su pronta conexión')
     hs = hashlib.sha256()
     print(hs)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((host, port))
+    sock.connect((host, puerto))
     print("Se conecto satisfactoriamente con el host ",
-          host, " en el puerto: ", port)
+          host, " en el puerto: ", puerto)
     print("Cliente ", idcliente, " listo para recibir información")
-    logging.info("Cliente ", idcliente, " listo para recibir información")
+    logging.info("Cliente " + str(idcliente) +
+                 " listo para recibir información")
 
-    data = socket.recv(1024)
+    data = sock.recv(1024)
     strings = data.decode('utf8').split('|')
     filename = strings[0]
-    filesize = strings[1]
-    socket.send(str(1).encode('utf8'))
+    filesize = int(strings[1])
+    sock.send(str(1).encode('utf8'))
 
-    print("Cliente ", idcliente, " envia confirmación de estado preparado")
-    logging.info("Cliente ", idcliente,
+    print("Cliente ", str(idcliente), " envia confirmación de estado preparado")
+    logging.info("Cliente " + str(idcliente) +
                  " envia confirmación de estado preparado")
     dataTotal = b''
     inicio = time.time()
     cond = True
-    filename = str('./archivosC/' + filename)
+    filename = str('./archivosC/descargados/' + filename)
 
     progress = tqdm.tqdm(range(
         filesize), f"Receiving {filename}", unit="B", unit_scale=True, unit_divisor=1024)

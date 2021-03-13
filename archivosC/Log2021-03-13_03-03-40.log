@@ -1,0 +1,6 @@
+2021-03-13 03:03:40 INFO     Cliente 8652819 listo para recibir información
+2021-03-13 03:03:40 INFO     Cliente 8652819 envia confirmación de estado preparado
+2021-03-13 03:03:46 INFO     Se recibe el hash junto con el archivo 
+2021-03-13 03:03:46 INFO     Hash verificado. Archivo correcto
+2021-03-13 03:03:46 INFO     Termino el envio con exito
+2021-03-13 03:03:46 INFO     Bytes recibidos: 104866013 , paquetes recibidos: 100.00802326202393 , tiempo utilizado: 5.88318657875061

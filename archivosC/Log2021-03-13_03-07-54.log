@@ -1,0 +1,6 @@
+2021-03-13 03:07:54 INFO     Cliente 4880852 listo para recibir información
+2021-03-13 03:07:54 INFO     Cliente 4880852 envia confirmación de estado preparado
+2021-03-13 03:08:01 INFO     Se recibe el hash junto con el archivo 
+2021-03-13 03:08:01 INFO     Hash verificado. Archivo correcto
+2021-03-13 03:08:01 INFO     Termino el envio con exito
+2021-03-13 03:08:01 INFO     Bytes recibidos: 104866013 , paquetes recibidos: 100.00802326202393 , tiempo utilizado: 5.965954303741455

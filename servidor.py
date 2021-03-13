@@ -4,12 +4,13 @@ import _thread
 import logging
 import hashlib
 import datetime
+import time
 import os
 
 
 ready = False
 archivo = None
-lock = threading.Lock
+lock = threading.Lock()
 oks = []
 
 
@@ -23,7 +24,7 @@ def threaded(socketC, idCli):
     ok = int(socketC.recv(1024).decode('utf8'))
     logging.info('El cliente #%i está listo para recibir', idCli)
     lock.acquire()
-    oks[id] = 1
+    oks[idCli] = 1
     esperar = False
     for i in oks:
         if i == 0:
@@ -100,12 +101,13 @@ def main():
     while recibir:
         (socketC, direccion) = socketS.accept()
         socketC.send((str(len(threads)) + '–Prueba-' +
-                      str(numClientes) + '.txt|' + str(filesize)).encode('utf8'))
+                      str(numClientes) + '.zip|' + str(filesize)).encode('utf8'))
         print('Se ha conectado el cliente %i (%s:%s)',
               len(threads), direccion[0], direccion[1])
         logging.info('Conexión con éxitosa con %s:%s. Asignado id: %i',
                      direccion[0], direccion[1], len(threads))
-        threadAct = Thread(target=threaded, args=(socketC, len(threads)))
+        threadAct = threading.Thread(
+            target=threaded, args=(socketC, len(threads)))
         threads.append(threadAct)
         if len(threads) == numClientes:
             recibir = True
