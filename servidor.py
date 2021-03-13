@@ -1,9 +1,8 @@
 import socket
-from threading import Thread, Lock
+import threading
 import _thread
 import logging
 import hashlib
-import lib
 import datetime
 import os
 
@@ -41,16 +40,19 @@ def threaded(socketC, idCli):
         m.update(data)
         tiempoIni = time.time()
         numBytes = socketC.send(data)
-        logging.info('Archivo enviado al cliente #%i, bytes enviados: %i', idCli, numBytes)
+        logging.info(
+            'Archivo enviado al cliente #%i, bytes enviados: %i', idCli, numBytes)
         print('Archivo enviado al cliente %i', idCli)
 
         hashM = m.hexdigest()
         numBytes += socketC.send(('Hash:' + hashM).encode())
         tiempoFin = time.time()
-        logging.info('Hash enviado al cliente #%i, bytes enviados en total: %i', idCli, numBytes)
+        logging.info(
+            'Hash enviado al cliente #%i, bytes enviados en total: %i', idCli, numBytes)
         print('Hash enviado al cliente %i', idCli)
 
-        logging.info('Tiempo del envío al cliente #%i: %i', idCli, tiempoIni-tiempoFin)
+        logging.info('Tiempo del envío al cliente #%i: %i',
+                     idCli, tiempoIni-tiempoFin)
 
     socketC.close()
 
@@ -61,7 +63,7 @@ def main():
     print('Bienvenido')
     fecha = datetime.datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
     nombreLog: str = './archivosS/log_' + fecha + '.log'
-    logging.basicConfig(filename=nombreLog, level=logging.INFO , datefmt='%Y-%m-%d %H:%M:%S',
+    logging.basicConfig(filename=nombreLog, level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                         format='%(asctime)s %(levelname)-8s %(message)s')
 
     host = socket.gethostname()
@@ -74,7 +76,8 @@ def main():
 
     socketS.listen(5)
     print('Escuchando...')
-    elegirArchivo = int(input('¿Qué archivo desea enviar? 1. 100 MB \t 2. 250 MB \n'))
+    elegirArchivo = int(
+        input('¿Qué archivo desea enviar? 1. 100 MB \t 2. 250 MB \n'))
     if elegirArchivo == 1:
         archivo = './data/100MB.zip'
         logging.info('Archivo a enviar: 100MB.zip con tamaño de 100 MB')
@@ -85,19 +88,23 @@ def main():
 
     filesize = os.path.getsize(archivo)
 
-    numClientes = int(input('¿A cuántos clientes desea enviar el archivo? Ingrese el número únicamente\n'))
+    numClientes = int(input(
+        '¿A cuántos clientes desea enviar el archivo? Ingrese el número únicamente\n'))
     logging.info('Número de clientes: %i', numClientes)
     print('Se enviará el archivo a ' + str(numClientes) + ' clientes')
     for i in range(numClientes):
-        oks[i] = 0
+        oks.append(0)
 
     threads = []
     recibir = True
     while recibir:
         (socketC, direccion) = socketS.accept()
-        socketC.send((str(len(threads)) + '–Prueba-' + str(numClientes) + '.txt|' + str(filesize)).encode('utf8'))
-        print('Se ha conectado el cliente %i (%s:%s)', len(threads), direccion[0], direccion[1])
-        logging.info('Conexión con éxitosa con %s:%s. Asignado id: %i', direccion[0], direccion[1], len(threads))
+        socketC.send((str(len(threads)) + '–Prueba-' +
+                      str(numClientes) + '.txt|' + str(filesize)).encode('utf8'))
+        print('Se ha conectado el cliente %i (%s:%s)',
+              len(threads), direccion[0], direccion[1])
+        logging.info('Conexión con éxitosa con %s:%s. Asignado id: %i',
+                     direccion[0], direccion[1], len(threads))
         threadAct = Thread(target=threaded, args=(socketC, len(threads)))
         threads.append(threadAct)
         if len(threads) == numClientes:
@@ -107,5 +114,6 @@ def main():
             threads = []
 
     socketS.close()
+
 
 main()
