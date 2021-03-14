@@ -53,7 +53,7 @@ def threaded(socketC, idCli):
         print('Hash enviado al cliente %i', idCli)
 
         logging.info('Tiempo del envío al cliente #%i: %i',
-                     idCli, tiempoIni-tiempoFin)
+                     idCli, tiempoFin-tiempoIni)
 
     socketC.close()
 
