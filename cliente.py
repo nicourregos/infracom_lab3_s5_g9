@@ -9,8 +9,9 @@ import tqdm
 
 def main():
 
+    # 192.168.0.13
     filesize = 104865944
-    host = '192.168.1.5'
+    host = '192.168.0.13'
     puerto = 55555
     idcliente = int(10000000*random.random())
     print('Hola, Cliente' + str(idcliente))
