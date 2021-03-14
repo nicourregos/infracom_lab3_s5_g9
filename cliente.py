@@ -10,7 +10,7 @@ import tqdm
 def main():
 
     filesize = 104865944
-    host = '192.168.0.13'
+    host = '192.168.0.9'
     puerto = 55555
     print('Hola, Cliente')
     fecha = datetime.datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
