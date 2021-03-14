@@ -43,17 +43,17 @@ def threaded(socketC, idCli):
         numBytes = socketC.send(data)
         logging.info(
             'Archivo enviado al cliente #%i, bytes enviados: %i', idCli, numBytes)
-        print('Archivo enviado al cliente %i', idCli)
+        print('Archivo enviado al cliente ' + str(idCli))
 
         hashM = m.hexdigest()
         numBytes += socketC.send(('Hash:' + hashM).encode())
         tiempoFin = time.time()
         logging.info(
             'Hash enviado al cliente #%i, bytes enviados en total: %i', idCli, numBytes)
-        print('Hash enviado al cliente %i', idCli)
+        print('Hash enviado al cliente ' + str(idCli))
 
         logging.info('Tiempo del envío al cliente #%i: %i',
-                     idCli, tiempoFin-tiempoIni)
+                     idCli, (tiempoFin-tiempoIni))
 
     socketC.close()
 
@@ -102,8 +102,8 @@ def main():
         (socketC, direccion) = socketS.accept()
         socketC.send((str(len(threads)) + '–Prueba-' +
                       str(numClientes) + '.zip|' + str(filesize)).encode('utf8'))
-        print('Se ha conectado el cliente %i (%s:%s)',
-              len(threads), direccion[0], direccion[1])
+        print('Se ha conectado el cliente ' + str(len(threads)) +
+              '(' + str(direccion[0]) + ':' + str(direccion[1]) + ')')
         logging.info('Conexión con éxitosa con %s:%s. Asignado id: %i',
                      direccion[0], direccion[1], len(threads))
         threadAct = threading.Thread(

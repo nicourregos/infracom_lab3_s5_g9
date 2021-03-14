@@ -1,9 +1,0 @@
-2021-03-13 03:07:40 INFO     Conectado a LAPTOP-GS9DBS5C en el puerto 55555
-2021-03-13 03:07:42 INFO     Archivo a enviar: 100MB.zip con tamaño de 100 MB
-2021-03-13 03:07:46 INFO     Número de clientes: 1
-2021-03-13 03:07:54 INFO     Conexión con éxitosa con 192.168.1.5:61319. Asignado id: 0
-2021-03-13 03:07:54 INFO     Cliente #0 iniciado
-2021-03-13 03:07:54 INFO     El cliente #0 está listo para recibir
-2021-03-13 03:07:55 INFO     Archivo enviado al cliente #0, bytes enviados: 104865944
-2021-03-13 03:08:01 INFO     Hash enviado al cliente #0, bytes enviados en total: 104866013
-2021-03-13 03:08:01 INFO     Tiempo del envío al cliente #0: -5

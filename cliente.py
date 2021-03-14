@@ -9,12 +9,10 @@ import tqdm
 
 def main():
 
-    # 192.168.0.13
     filesize = 104865944
     host = '192.168.0.13'
     puerto = 55555
-    idcliente = int(10000000*random.random())
-    print('Hola, Cliente' + str(idcliente))
+    print('Hola, Cliente')
     fecha = datetime.datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
     logging.basicConfig(filename="./archivosC/Log" + fecha + ".log", level=logging.INFO,
                         format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -25,19 +23,29 @@ def main():
     sock.connect((host, puerto))
     print("Se conecto satisfactoriamente con el host ",
           host, " en el puerto: ", puerto)
-    print("Cliente ", idcliente, " listo para recibir información")
-    logging.info("Cliente " + str(idcliente) +
-                 " listo para recibir información")
+    print("Cliente comenzará a recibir información")
+    logging.info("Cliente comenzará a recibir información")
 
     data = sock.recv(1024)
     strings = data.decode('utf8').split('|')
     filename = strings[0]
+    strings2 = filename.split('-')[0].split("-")
+    idcliente = strings2[0]
+    idcliente = idcliente[0]
     filesize = int(strings[1])
+    print("Cliente ", idcliente, " recibirá archivo ",
+          str(filename), " con peso ", str(filesize))
+    logging.info("Cliente " + idcliente + " recibirá archivo " +
+                 str(filename) + " con peso " + str(filesize))
+
+    input("Presione enter para enviar la confirmación de que se encuentra listo para recibir el archivo")
+
     sock.send(str(1).encode('utf8'))
 
-    print("Cliente ", str(idcliente), " envia confirmación de estado preparado")
+    print("Cliente ", str(idcliente),
+          " envia confirmación de estado preparado para recibir archivo")
     logging.info("Cliente " + str(idcliente) +
-                 " envia confirmación de estado preparado")
+                 " envia confirmación de estado preparado para recibir archivo")
     dataTotal = b''
     inicio = time.time()
     cond = True
@@ -55,6 +63,10 @@ def main():
             progress.update(len(data))
             if data and cond:
                 cond = False
+                print("Cliente ", str(idcliente),
+                      " recibe el primer paquete del archivo")
+                logging.info("Cliente " + str(idcliente) +
+                             " recibe el primer paquete del archivo")
                 inicio = time.time()
             if not data:
                 print("Termino el envío con exito")
@@ -82,8 +94,8 @@ def main():
                         "El hash no pudo ser verificado. Hay un problema con el archivo recibido :(")
                     logging.info("Hash erroneo. Archivo incorrecto")
 
-    logging.info('Bytes recibidos: %s , paquetes recibidos: %s , tiempo utilizado: %s', len(
-        dataTotal), len(dataTotal)/1048576, (fin-inicio))
+    logging.info('Bytes recibidos: %s , paquetes recibidos: %s , tiempo utilizado: %s, tasa de transferencia: %s', len(
+        dataTotal), len(dataTotal)/1048576, (fin-inicio), (len(dataTotal)/(fin-inicio)))
 
     sock.close()
 

@@ -1,6 +1,0 @@
-2021-03-13 03:09:30 INFO     Cliente 5452482 listo para recibir información
-2021-03-13 03:09:30 INFO     Cliente 5452482 envia confirmación de estado preparado
-2021-03-13 03:09:39 INFO     Se recibe el hash junto con el archivo 
-2021-03-13 03:09:39 INFO     Hash verificado. Archivo correcto
-2021-03-13 03:09:39 INFO     Termino el envio con exito
-2021-03-13 03:09:39 INFO     Bytes recibidos: 104866013 , paquetes recibidos: 100.00802326202393 , tiempo utilizado: 7.575007677078247
