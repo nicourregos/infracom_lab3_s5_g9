@@ -67,7 +67,7 @@ def main():
     logging.basicConfig(filename=nombreLog, level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                         format='%(asctime)s %(levelname)-8s %(message)s')
 
-    host = '34.227.110.129'
+    host = '0.0.0.0'
     puerto = 55555
     logging.info('Conectado a %s en el puerto %s', host, puerto)
 
