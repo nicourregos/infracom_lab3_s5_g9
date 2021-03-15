@@ -67,7 +67,7 @@ def main():
     logging.basicConfig(filename=nombreLog, level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                         format='%(asctime)s %(levelname)-8s %(message)s')
 
-    host = '192.168.0.9'
+    host = socket.gethostbyname(socket.gethostname())
     puerto = 55555
     logging.info('Conectado a %s en el puerto %s', host, puerto)
 
@@ -110,7 +110,7 @@ def main():
             target=threaded, args=(socketC, len(threads)))
         threads.append(threadAct)
         if len(threads) == numClientes:
-            recibir = True
+            recibir = False
             for i in threads:
                 i.start()
             threads = []
