@@ -11,7 +11,7 @@ def main():
 
     filesize = 104865944
     host = '192.168.0.9'
-    puerto = 55555
+    puerto = 50000
     print('Hola, Cliente')
     fecha = datetime.datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
     logging.basicConfig(filename="./archivosC/Log" + fecha + ".log", level=logging.INFO,
@@ -49,7 +49,7 @@ def main():
     dataTotal = b''
     inicio = time.time()
     cond = True
-    filename = str('./archivosC/descargados/' + filename)
+    filename = str('./archivosC/archivosRecibidos/' + filename)
 
     progress = tqdm.tqdm(range(
         filesize), f"Receiving {filename}", unit="B", unit_scale=True, unit_divisor=1024)
