@@ -67,7 +67,7 @@ def main():
     logging.basicConfig(filename=nombreLog, level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                         format='%(asctime)s %(levelname)-8s %(message)s')
 
-    host = socket.gethostbyname(socket.gethostname())
+    host = socket.gethostbyname(socket.getfqdn())
     puerto = 55555
     logging.info('Conectado a %s en el puerto %s', host, puerto)
 
