@@ -78,13 +78,17 @@ def main():
     socketS.listen(5)
     print('Escuchando...')
     elegirArchivo = int(
-        input('¿Qué archivo desea enviar? 1. 100 MB \t 2. 250 MB \n'))
+        input('¿Qué archivo desea enviar? 1. 100 MB \t 2. 250 MB \t 3. Zimzalabim.mp4 \n'))
     if elegirArchivo == 1:
         archivo = './data/100MB.zip'
         logging.info('Archivo a enviar: 100MB.zip con tamaño de 100 MB')
-    else:
+    elif elegirArchivo == 2:
         archivo = './data/250MB.zip'
         logging.info('Archivo a enviar: 250MB.zip con tamaño de 250 MB')
+    else:
+        archivo = './data/Zimzalabim.mp4'
+        logging.info('Archivo a enviar: Zimzalabim.mp4')
+
     print('Se ha seleccionado el archivo ', archivo)
 
     filesize = os.path.getsize(archivo)
@@ -100,8 +104,12 @@ def main():
     recibir = True
     while recibir:
         (socketC, direccion) = socketS.accept()
-        socketC.send((str(len(threads)) + '–Prueba-' +
-                      str(numClientes) + '.zip|' + str(filesize)).encode('utf8'))
+        if(archivo == './data/Zimzalabim.mp4'):
+            socketC.send((str(len(threads)) + '–Prueba-' +
+                          str(numClientes) + '.mp4|' + str(filesize)).encode('utf8'))
+        else:
+            socketC.send((str(len(threads)) + '–Prueba-' +
+                          str(numClientes) + '.zip|' + str(filesize)).encode('utf8'))
         print('Se ha conectado el cliente ' + str(len(threads)) +
               '(' + str(direccion[0]) + ':' + str(direccion[1]) + ')')
         logging.info('Conexión con éxitosa con %s:%s. Asignado id: %i',
